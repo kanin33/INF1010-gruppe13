@@ -1,10 +1,10 @@
 import java.util.*;
 
 class Lenkeliste<E> implements Iterable<E>{
-    public Node forste;
+    private Node forste;
     private int lengde = 0;
 
-    class Node {
+    private class Node {
         E verdi;
         Node neste;
         public Node(E verdi) {
@@ -38,12 +38,13 @@ class Lenkeliste<E> implements Iterable<E>{
         }
 
         public E next() {
-            if(!hasNext()) {
+            if(hasNext()) {
+                E verdi = denne.neste.verdi;
+                denne = denne.neste;
+                return verdi;
+            } else {
                 throw new NoSuchElementException();
             }
-            E verdi = denne.neste.verdi;
-            denne = denne.neste;
-            return verdi;
         }
     }
 
